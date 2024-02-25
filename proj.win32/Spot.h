@@ -13,7 +13,7 @@ public:
 	virtual Piece* getOccupyingPiece();
 	virtual void removePiece();
 	virtual void connectSpot(Spot* spot);
-
+	virtual void connectSpots(std::vector<Spot*> spots);
 private:
 	Piece* _occupyingPiece;
 	std::vector<Spot*> _connectingSpots;

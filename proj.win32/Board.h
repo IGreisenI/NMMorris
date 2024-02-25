@@ -7,7 +7,7 @@ class Board : public cocos2d::Node
 {
 public:
 	virtual bool init();
-	void addSpot(float xPos, float yPos);
+	virtual Spot* addSpot(float xPos, float yPos);
 
 	//virtual bool tryFunction();
 	//virtual bool placePiece(Spot* spot);

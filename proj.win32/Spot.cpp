@@ -45,5 +45,12 @@ void Spot::removePiece() {
 }
 
 void Spot::connectSpot(Spot* spot) {
-    _connectingSpots.push_back(spot);;
+    _connectingSpots.push_back(spot);
+    spot->_connectingSpots.push_back(this);
+}
+
+void Spot::connectSpots(std::vector<Spot*> spots) {
+    for each (Spot * spot in spots) {
+        connectSpot(spot);
+    }
 }
