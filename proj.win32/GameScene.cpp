@@ -1,6 +1,7 @@
 #include "GameScene.h"
 #include "Board.h"
 #include "Player.h"
+#include "PlayerInput.h"
 USING_NS_CC;
 
 Scene* GameScene::createScene()
@@ -24,12 +25,15 @@ bool GameScene::init()
 
 
     auto player1 = Player::create();
+    auto playerInput = PlayerInput::create();
+    playerInput->setActivePlayer(player1);
 
     auto board = Board::create();
 
     for (int i = 0; i < 9; i++) {
         auto piece = Piece::create("Player1Piece.png");
         piece->setPosition(-270, -240 + piece->getChildren().at(0)->getBoundingBox().getMaxY() * 2 * i);
+        piece->setOwner(player1);
         board->addChild(piece);
     }
 
@@ -42,6 +46,7 @@ bool GameScene::init()
     this->addChild(boardSprite);
     this->addChild(board);
     this->addChild(player1);
+    this->addChild(playerInput);
 
     return true;
 }

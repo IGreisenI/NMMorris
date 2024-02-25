@@ -24,3 +24,11 @@ bool Piece::init(std::string spriteFileName) {
 
     return true;
 }
+
+void Piece::setOwner(Player* owner) {
+    _owner = owner;
+}
+
+Player* Piece::getOwner() {
+    return _owner;
+}
