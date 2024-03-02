@@ -16,6 +16,5 @@ private:
     void startGame(cocos2d::Ref* sender);
     void quitGame(cocos2d::Ref* sender);
     void showSettings(cocos2d::Ref* sender);
-
 };
 

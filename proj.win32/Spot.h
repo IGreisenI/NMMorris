@@ -14,7 +14,13 @@ public:
 	virtual void removePiece();
 	virtual void connectSpot(Spot* spot);
 	virtual void connectSpots(std::vector<Spot*> spots);
+	virtual void showAvaliable(bool avaliable);
+	virtual void showAvaliableConnectedSpots(bool showAvaliable);
+
+	virtual std::vector<Spot*> getConnectingSpots();
 private:
+	cocos2d::Sprite* _spotSprite;
+	cocos2d::Sprite* _spotAvaliableSprite;
 	Piece* _occupyingPiece;
 	std::vector<Spot*> _connectingSpots;
 };

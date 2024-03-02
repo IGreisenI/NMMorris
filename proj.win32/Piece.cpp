@@ -1,9 +1,9 @@
 #include "Piece.h"
 USING_NS_CC;
 
-Piece* Piece::create(std::string spriteFileName) {
+Piece* Piece::create(std::string spriteFileName, std::string spriteSelectdFileName) {
     Piece* piece = new (std::nothrow) Piece();
-    if (piece && piece->init(spriteFileName)) {
+    if (piece && piece->init(spriteFileName, spriteSelectdFileName)) {
         piece->autorelease();
         return piece;
     }
@@ -11,11 +11,15 @@ Piece* Piece::create(std::string spriteFileName) {
     return nullptr;
 }
 
-bool Piece::init(std::string spriteFileName) {
-    auto pieceSprite = Sprite::create(spriteFileName);
-    this->addChild(pieceSprite);
+bool Piece::init(std::string spriteFileName, std::string spriteSelectdFileName) {
+    _pieceSprite = Sprite::create(spriteFileName);
+    this->addChild(_pieceSprite);
+
+    _pieceSelectedSprite = Sprite::create(spriteSelectdFileName);
+    this->addChild(_pieceSelectedSprite);
+    _pieceSelectedSprite->setVisible(false);
     
-    auto physicsBody = PhysicsBody::createBox(pieceSprite->getContentSize());
+    auto physicsBody = PhysicsBody::createBox(_pieceSprite->getContentSize());
     physicsBody->setDynamic(false);
     physicsBody->setCollisionBitmask(0x02);
     this->addComponent(physicsBody);
@@ -25,10 +29,31 @@ bool Piece::init(std::string spriteFileName) {
     return true;
 }
 
-void Piece::setOwner(Player* owner) {
-    _owner = owner;
+void Piece::setPlaced(bool isPlaced) {
+    _isPlaced = isPlaced;
 }
 
-Player* Piece::getOwner() {
-    return _owner;
+bool Piece::isPlaced() {
+    return _isPlaced;
+}
+
+void Piece::moveToPosition(Vec2 position) {
+    auto moveTo = MoveTo::create(0.5f, position);   
+
+    this->runAction(moveTo);
+}
+
+void Piece::select(bool isSelected) {
+    _pieceSprite->setVisible(!isSelected);
+    _pieceSelectedSprite->setVisible(isSelected);
+}
+
+Sprite* Piece::getPieceSprite() {
+    return _pieceSprite;
+}
+
+void Piece::destroy() {
+    removeAllChildrenWithCleanup(true);
+    removeFromParentAndCleanup(true);
+    setPosition(-10000, -10000);
 }

@@ -6,18 +6,14 @@
 class Board : public cocos2d::Node
 {
 public:
-	virtual bool init();
+	static Board* create(std::string boardSpriteName);
+	virtual bool init(std::string boardSpriteName);
+
 	virtual Spot* addSpot(float xPos, float yPos);
 
-	//virtual bool tryFunction();
-	//virtual bool placePiece(Spot* spot);
-	//virtual bool movePiece(Spot* fromSpot, Spot* toSpot);
-	//virtual bool removePiece(Spot* spot);
-	//bool CheckForMill(Player player);
-	//bool CheckForWin(Player player);
-
-	CREATE_FUNC(Board);
+	virtual cocos2d::Rect getBoundingBoxOfSprite();
+	
 private:
-	Spot* _boardSpots[24];
+	std::vector<Spot*> _boardSpots;
+	cocos2d::Sprite* _boardSprite;
 };
-

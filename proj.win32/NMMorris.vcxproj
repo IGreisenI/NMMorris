@@ -814,17 +814,18 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="Checker.cpp" />
     <ClCompile Include="GameScene.cpp" />
-    <ClCompile Include="GraphicsScene.cpp" />
-    <ClCompile Include="KeyTabletScene.cpp" />
     <ClCompile Include="MainMenu.cpp" />
-    <ClCompile Include="MouseScene.cpp" />
     <ClCompile Include="Piece.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerInput.cpp" />
     <ClCompile Include="Spot.cpp" />
-    <ClCompile Include="TouchScene.cpp" />
+    <ClCompile Include="StageController.cpp" />
+    <ClCompile Include="TurnController.cpp" />
+    <ClCompile Include="VictoryScreen.cpp" />
     <ClInclude Include="Board.h" />
+    <ClInclude Include="Checker.h" />
     <ClInclude Include="E:\My Systems\NMMorris\Classes\AppDelegate.h" />
     <ClInclude Include="E:\My Systems\NMMorris\Classes\HelloWorldScene.h" />
     <ClInclude Include="E:\My Systems\NMMorris\proj.win32\main.h" />
@@ -833,15 +834,14 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="E:\My Systems\NMMorris\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="E:\My Systems\NMMorris\proj.win32\main.cpp" />
     <ClInclude Include="GameScene.h" />
-    <ClInclude Include="GraphicsScene.h" />
-    <ClInclude Include="KeyTabletScene.h" />
     <ClInclude Include="MainMenu.h" />
-    <ClInclude Include="MouseScene.h" />
     <ClInclude Include="Piece.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerInput.h" />
     <ClInclude Include="Spot.h" />
-    <ClInclude Include="TouchScene.h" />
+    <ClInclude Include="StageController.h" />
+    <ClInclude Include="TurnController.h" />
+    <ClInclude Include="VictoryScreen.h" />
     <ResourceCompile Include="E:\My Systems\NMMorris\proj.win32\game.rc" />
     <ClInclude Include="E:\My Systems\NMMorris\Resources\CloseNormal.png" />
     <ClInclude Include="E:\My Systems\NMMorris\Resources\CloseSelected.png" />

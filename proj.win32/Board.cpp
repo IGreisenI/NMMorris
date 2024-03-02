@@ -1,11 +1,21 @@
 #include "Board.h"
 USING_NS_CC;
 
-bool Board::init()
+Board* Board::create(std::string boardSpriteName) {
+    Board* board = new (std::nothrow) Board();
+    if (board && board->init(boardSpriteName)) {
+        board->autorelease();
+        return board;
+    }
+    CC_SAFE_DELETE(board);
+    return nullptr;
+}
+
+bool Board::init(std::string boardSpriteName)
 {
     auto windowSize = Director::getInstance()->getWinSizeInPixels();
-    auto boardSprite = Sprite::create("board.png");
-    this->addChild(boardSprite);
+    _boardSprite = Sprite::create(boardSpriteName);
+    this->addChild(_boardSprite);
     this->setPosition(windowSize.width / 2, windowSize.height / 2);
 
     int distance = 64;
@@ -57,6 +67,17 @@ bool Board::init()
     Spot* secondLeftMiddle = addSpot(distance * -2, distance * 0);
     Spot* firstLeftMiddle = addSpot(distance * -1, distance * 0);
 
+    _boardSpots = std::vector<Spot*>
+    { 
+        thirdLeftTop, secondLeftTop, secondLeftTop,
+        thirdMiddleTop, secondMiddleTop, firstLeftTop,
+        thirdRightTop, secondRightTop, firstRightTop,
+        thirdRightMiddle, secondRightMiddle, firstRightMiddle,
+        thirdRightDown, secondRightDown, firstRightDown,
+        thirdMiddleDown, secondMiddleDown, firstMiddleDown,
+        thirdLeftDown, secondLeftDown, firstLeftDown,
+        thirdLeftMiddle, secondLeftMiddle, firstLeftMiddle
+    };
 
     // Connect spots in a nine mans morris way!
     thirdLeftTop->connectSpots({ thirdLeftMiddle, thirdMiddleTop });
@@ -79,13 +100,17 @@ bool Board::init()
     secondRightMiddle->connectSpots({ thirdRightMiddle, firstRightMiddle });
     secondMiddleDown->connectSpots({ thirdMiddleDown, firstMiddleDown });
     secondLeftMiddle->connectSpots({ thirdLeftMiddle, firstLeftMiddle });
-    
+
     return true;
 }
 
 Spot* Board::addSpot(float xPos, float yPos) {
-    Spot* spot = Spot::create("SpotTestSprite.png");
+    Spot* spot = Spot::create("SpotSprite.png");
     spot->setPosition(xPos, yPos);
     this->addChild(spot);
     return spot;
+}
+
+Rect Board::getBoundingBoxOfSprite() {
+    return _boardSprite->getBoundingBox();
 }

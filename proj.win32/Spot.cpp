@@ -12,11 +12,14 @@ Spot* Spot::create(std::string spriteFileName) {
 }
 
 bool Spot::init(std::string spriteFileName) {
-    auto spotSprite = Sprite::create(spriteFileName);
-    this->addChild(spotSprite);
+    _spotSprite = Sprite::create(spriteFileName);
+    this->addChild(_spotSprite);
 
+    _spotAvaliableSprite = Sprite::create("SpotAvaliable.png");
+    this->addChild(_spotAvaliableSprite);
+    showAvaliable(false);
 
-    auto physicsBody = PhysicsBody::createBox(spotSprite->getContentSize());
+    auto physicsBody = PhysicsBody::createBox(_spotSprite->getContentSize());
     physicsBody->setDynamic(false);
     physicsBody->setCollisionBitmask(0x01);
     physicsBody->setContactTestBitmask(0x01);
@@ -29,7 +32,8 @@ bool Spot::init(std::string spriteFileName) {
 void Spot::placePiece(Piece* piece) {
     _occupyingPiece = piece;
     _occupyingPiece->setParent(this);
-    _occupyingPiece->setPosition(this->getPosition());
+    _occupyingPiece->moveToPosition(this->getPosition());
+    _occupyingPiece->setPlaced(true);
 }
 
 bool Spot::isOccupied() {
@@ -52,5 +56,19 @@ void Spot::connectSpot(Spot* spot) {
 void Spot::connectSpots(std::vector<Spot*> spots) {
     for each (Spot * spot in spots) {
         connectSpot(spot);
+    }
+}
+
+std::vector<Spot*> Spot::getConnectingSpots() {
+    return _connectingSpots;
+}
+
+void Spot::showAvaliable(bool avaliable) {
+    _spotAvaliableSprite->setVisible(avaliable);
+}
+
+void Spot::showAvaliableConnectedSpots(bool showAvaliable) {
+    for each (Spot* spot in _connectingSpots) {
+        if(!spot->isOccupied()) spot->showAvaliable(showAvaliable);
     }
 }

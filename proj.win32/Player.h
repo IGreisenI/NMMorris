@@ -1,15 +1,22 @@
 #pragma once
 #include "cocos2d.h"
+#include "Piece.h"
 
 class Player : public cocos2d::Node
 {
 public:
-	virtual bool init();
-	//virtual void setTurn();
+	static Player* create(std::string playerName);
+	virtual bool init(std::string playerName);
 
-	CREATE_FUNC(Player);
+	virtual std::string getName();
+
+	virtual void addPieceToPlayer(Piece* piece);
+	virtual void removePieceToPlayer(Piece* piece);
+	virtual bool isPlayerPiece(Piece* piece);
+	virtual bool isAllPiecesPlaced();
+	virtual std::vector<Piece*> getPieces();
 private:
 	std::string _name;
-	int _piecesLeft;
+	std::vector<Piece*> _pieces;
 	bool _isTurn;
 };
