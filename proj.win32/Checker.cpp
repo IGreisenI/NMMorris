@@ -23,9 +23,9 @@ bool Checker::init(std::vector<Player*> players)
                 owner = player;
             }
         }
-
 		handlePiecedPlaced(touchedSpot, owner);
 		});
+
 	dispatcher->addEventListenerWithSceneGraphPriority(playerInputFinishedListener, this);
 
     auto playerEndTurnListener = cocos2d::EventListenerCustom::create("end_turn", [&](cocos2d::EventCustom* e) {

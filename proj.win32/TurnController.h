@@ -8,6 +8,7 @@ class TurnController : public cocos2d::Node
 public:
     static TurnController* create(PlayerInput* playerInput, std::vector<Player*> players);
     virtual bool init(PlayerInput* playerInput, std::vector<Player*> players);
+    void setupEventListeners();
     virtual void createPlayerLabel();
 
     virtual void nextTurn();

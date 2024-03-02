@@ -17,6 +17,10 @@ bool Player::init(std::string playerName)
 	return true;
 }
 
+void Player::setPlayerName(std::string playerName) {
+	_name = playerName;
+}
+
 std::string Player::getName() {
 	return _name;
 }

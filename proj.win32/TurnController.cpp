@@ -20,6 +20,13 @@ bool TurnController::init(PlayerInput* playerInput, std::vector<Player*> players
 
     createPlayerLabel();
 
+    setupEventListeners();
+
+	return true;
+}
+
+void TurnController::setupEventListeners()
+{
     auto dispatcher = cocos2d::Director::getInstance()->getEventDispatcher();
     auto playerNoMill = cocos2d::EventListenerCustom::create("player_no_mill", [&](cocos2d::EventCustom* event) {
         nextTurn();
@@ -29,9 +36,6 @@ bool TurnController::init(PlayerInput* playerInput, std::vector<Player*> players
         nextTurn();
         });
     dispatcher->addEventListenerWithSceneGraphPriority(playerPlayedMill, this);
-
-
-	return true;
 }
 
 void TurnController::nextTurn() {

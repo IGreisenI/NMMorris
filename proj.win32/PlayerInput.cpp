@@ -1,9 +1,9 @@
 #include "PlayerInput.h"
 USING_NS_CC;
 
-PlayerInput* PlayerInput::create(std::vector<Player*> players) {
+PlayerInput* PlayerInput::create(std::vector<Player*> players, Checker* checker) {
     PlayerInput* playerInput = new (std::nothrow) PlayerInput();
-    if (playerInput && playerInput->init(players)) {
+    if (playerInput && playerInput->init(players, checker)) {
         playerInput->autorelease();
         return playerInput;
     }
@@ -11,28 +11,33 @@ PlayerInput* PlayerInput::create(std::vector<Player*> players) {
     return nullptr;
 }
 
-bool PlayerInput::init(std::vector<Player*> players)
+bool PlayerInput::init(std::vector<Player*> players, Checker* checker)
 {
     _players = players;
+    _checker = checker;
+    setupEventListeners();
+    return true;
+}
+
+void PlayerInput::setupEventListeners()
+{
     auto dispatcher = Director::getInstance()->getEventDispatcher();
 
     _touchListener = EventListenerTouchOneByOne::create();
     _touchListener->onTouchBegan = CC_CALLBACK_2(PlayerInput::onTouchBegan, this);
     dispatcher->addEventListenerWithSceneGraphPriority(_touchListener, this);
 
-    auto keyEventListener = EventListenerKeyboard::create();
-    keyEventListener->onKeyPressed = [=](EventKeyboard::KeyCode keyCode, Event* event) {
+    auto restartKeyEventListener = EventListenerKeyboard::create();
+    restartKeyEventListener->onKeyPressed = [=](EventKeyboard::KeyCode keyCode, Event* event) {
         if (keyCode == EventKeyboard::KeyCode::KEY_R)
             dispatcher->dispatchCustomEvent("restart_game");
     };
-    dispatcher->addEventListenerWithSceneGraphPriority(keyEventListener, this);
-    
-    auto playerInputFinishedListener = cocos2d::EventListenerCustom::create("player_achieved_mill", [&](cocos2d::EventCustom* event) {
+    dispatcher->addEventListenerWithSceneGraphPriority(restartKeyEventListener, this);
+
+    auto playerAchivedMillListener = cocos2d::EventListenerCustom::create("player_achieved_mill", [&](cocos2d::EventCustom* event) {
         handleMillInput();
         });
-
-    dispatcher->addEventListenerWithSceneGraphPriority(playerInputFinishedListener, this);
-    return true;
+    dispatcher->addEventListenerWithSceneGraphPriority(playerAchivedMillListener, this);
 }
 
 bool PlayerInput::onTouchBegan(Touch* touch, Event* event)
@@ -43,8 +48,9 @@ bool PlayerInput::onTouchBegan(Touch* touch, Event* event)
     PhysicsRayCastCallbackFunc callback = [&](PhysicsWorld& world, const PhysicsRayCastInfo& info, void* data) -> bool {
         auto node = info.shape->getBody()->getNode();
 
-        if (_isMilling && node && dynamic_cast<Piece*>(node) && !_activePlayer->isPlayerPiece(dynamic_cast<Piece*>(node))) {
-            attemptMill(dynamic_cast<Piece*>(node));
+        if (_isMilling && node && dynamic_cast<Piece*>(node)) {
+            if(!_activePlayer->isPlayerPiece(dynamic_cast<Piece*>(node))) 
+                attemptMill(dynamic_cast<Piece*>(node));
             return false;
         }
 
@@ -95,20 +101,25 @@ void PlayerInput::handleMillInput() {
 
 void PlayerInput::attemptMill(Piece* touchedPiece)
 {
+    Player* opponentPlayer;
+    for each (Player * player in _players) {
+        if (player->isPlayerPiece(touchedPiece)) opponentPlayer = player;
+    }
+
     if (!touchedPiece->isPlaced()) return;
+    if (_checker->checkForMill(dynamic_cast<Spot*>(touchedPiece->getParent()), opponentPlayer)) {
+        for each (Piece * piece in opponentPlayer->getPieces()) {
+            if (dynamic_cast<Spot*>(piece->getParent()) && !_checker->checkForMill(dynamic_cast<Spot*>(piece->getParent()), opponentPlayer)) return;
+        }
+    }
 
     if (dynamic_cast<Spot*>(touchedPiece->getParent())) {
         dynamic_cast<Spot*>(touchedPiece->getParent())->removePiece();
     }
 
+    opponentPlayer->removePieceToPlayer(touchedPiece);
 
-    for each (Player * player in _players) {
-        if (player->isPlayerPiece(touchedPiece)) player->removePieceToPlayer(touchedPiece);
-    }
-
-    // Yeah idk how to properly delete it, we doing this skyrim style, purgatory
     touchedPiece->destroy();
-
 
     auto dispatcher = Director::getInstance()->getEventDispatcher();
     dispatcher->dispatchCustomEvent("player_played_mill");
@@ -119,13 +130,15 @@ void PlayerInput::attemptMill(Piece* touchedPiece)
 void PlayerInput::handlePieceTouch(Piece* touchedPiece)
 {
     if(_selectedPiece){
-        _selectedPiece->select(false);
         Spot* parentSpot = dynamic_cast<Spot*>(_selectedPiece->getParent());
         if (parentSpot) parentSpot->showAvaliableConnectedSpots(false);
+        
+        _selectedPiece->select(false);
     }
 
     Spot* parentSpot = dynamic_cast<Spot*>(touchedPiece->getParent());
-    if (parentSpot) parentSpot->showAvaliableConnectedSpots(true);
+    if (parentSpot && !_activePlayer->isAllPiecesPlaced() && _activePlayer->getPieces().size() > 3) 
+        parentSpot->showAvaliableConnectedSpots(true);
 
     _selectedPiece = touchedPiece;
     _selectedPiece->select(true);
@@ -133,7 +146,6 @@ void PlayerInput::handlePieceTouch(Piece* touchedPiece)
 
 void PlayerInput::handleSpotTouch(Spot* touchedSpot)
 {
-
     Spot* parentSpot = dynamic_cast<Spot*>(_selectedPiece->getParent());
     if (parentSpot) {
         parentSpot->removePiece();

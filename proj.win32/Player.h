@@ -8,6 +8,7 @@ public:
 	static Player* create(std::string playerName);
 	virtual bool init(std::string playerName);
 
+	virtual void setPlayerName(std::string playerName);
 	virtual std::string getName();
 
 	virtual void addPieceToPlayer(Piece* piece);

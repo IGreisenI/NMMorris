@@ -17,18 +17,7 @@ bool GameScene::init()
         return false;
     }
 
-    auto dispatcher = cocos2d::Director::getInstance()->getEventDispatcher();
-    auto gameOver = cocos2d::EventListenerCustom::create("game_over", [&](cocos2d::EventCustom* e) {
-        onVictory();
-        });
-
-    dispatcher->addEventListenerWithSceneGraphPriority(gameOver, this);
-
-    auto restartGameListener = cocos2d::EventListenerCustom::create("restart_game", [&](cocos2d::EventCustom* e) {
-        restartGame();
-        });
-    dispatcher->addEventListenerWithSceneGraphPriority(restartGameListener, this);
-
+    setupEventListeners();
 
     auto windowSize = Director::getInstance()->getWinSizeInPixels();
     auto backgroundSprite = Sprite::create("Background.png");
@@ -37,14 +26,14 @@ bool GameScene::init()
     _players.push_back(Player::create("Steve"));
     _players.push_back(Player::create("The Old One - World Destroyer"));
 
-    auto playerInput = PlayerInput::create(_players);
+    auto checker = Checker::create(_players);
+    auto playerInput = PlayerInput::create(_players, checker);
     auto turnController = TurnController::create(playerInput, _players);
     auto stageController = StageController::create();
-    auto checker = Checker::create(_players);
 
     auto board = Board::create("board.png");
 
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 9; i++) {
         auto piece = Piece::create("Player1PieceV2.png", "Player1PieceV2Selected.png");
         board->addChild(piece);
         piece->setPosition(board->getBoundingBoxOfSprite().getMinX() + piece->getPieceSprite()->getBoundingBox().getMinX() - 4, board->getBoundingBoxOfSprite().getMinY() + piece->getChildren().at(0)->getBoundingBox().getMaxY() + piece->getChildren().at(0)->getBoundingBox().getMaxY() * 2 * i);
@@ -56,7 +45,7 @@ bool GameScene::init()
     player1Label->setPosition(board->getBoundingBoxOfSprite().getMinX(), board->getBoundingBoxOfSprite().getMinY());
 
 
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 9; i++) {
         auto piece = Piece::create("Player2PieceV2.png", "Player2PieceV2Selected.png");
         board->addChild(piece);
         piece->setPosition(board->getBoundingBoxOfSprite().getMaxX() + piece->getPieceSprite()->getBoundingBox().getMaxX() + 4, board->getBoundingBoxOfSprite().getMinY() + piece->getChildren().at(0)->getBoundingBox().getMaxY() + piece->getChildren().at(0)->getBoundingBox().getMaxY() * 2 * i);
@@ -79,6 +68,21 @@ bool GameScene::init()
     }
 
     return true;
+}
+
+void GameScene::setupEventListeners()
+{
+    auto dispatcher = cocos2d::Director::getInstance()->getEventDispatcher();
+    auto gameOver = cocos2d::EventListenerCustom::create("game_over", [&](cocos2d::EventCustom* e) {
+        onVictory();
+        });
+
+    dispatcher->addEventListenerWithSceneGraphPriority(gameOver, this);
+
+    auto restartGameListener = cocos2d::EventListenerCustom::create("restart_game", [&](cocos2d::EventCustom* e) {
+        restartGame();
+        });
+    dispatcher->addEventListenerWithSceneGraphPriority(restartGameListener, this);
 }
 
 void GameScene::onVictory() {

@@ -28,18 +28,24 @@
     <ClCompile Include="Spot.cpp">
       <Filter>Source Files\Board</Filter>
     </ClCompile>
-    <ClCompile Include="TurnController.cpp" />
     <ClCompile Include="Player.cpp">
       <Filter>Source Files\Player</Filter>
     </ClCompile>
     <ClCompile Include="PlayerInput.cpp">
       <Filter>Source Files\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Checker.cpp" />
     <ClCompile Include="VictoryScreen.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="StageController.cpp" />
+    <ClCompile Include="Checker.cpp">
+      <Filter>Source Files\GameLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="StageController.cpp">
+      <Filter>Source Files\GameLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="TurnController.cpp">
+      <Filter>Source Files\GameLogic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="E:\My Systems\NMMorris\Classes\AppDelegate.h">
@@ -87,18 +93,24 @@
     <ClInclude Include="Spot.h">
       <Filter>Source Files\Board</Filter>
     </ClInclude>
-    <ClInclude Include="TurnController.h" />
     <ClInclude Include="Player.h">
       <Filter>Source Files\Player</Filter>
     </ClInclude>
     <ClInclude Include="PlayerInput.h">
       <Filter>Source Files\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Checker.h" />
     <ClInclude Include="VictoryScreen.h">
       <Filter>Source Files\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="StageController.h" />
+    <ClInclude Include="Checker.h">
+      <Filter>Source Files\GameLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="StageController.h">
+      <Filter>Source Files\GameLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="TurnController.h">
+      <Filter>Source Files\GameLogic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="E:\My Systems\NMMorris\CMakeLists.txt" />
@@ -135,6 +147,9 @@
     </Filter>
     <Filter Include="Source Files\Player">
       <UniqueIdentifier>{2310ecbc-2850-46ea-bac0-a8762b1325d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameLogic">
+      <UniqueIdentifier>{0d20e3ef-1dca-4070-9ba7-82aeff5df5de}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
