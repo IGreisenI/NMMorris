@@ -118,7 +118,7 @@ void Checker::handleOnEndTurn() {
 
 void Checker::checkWin(Player* enemyPlayer) {
     if (enemyPlayer->getPieces().size() <= 2) {
-        cocos2d::Director::getInstance()->getEventDispatcher()->dispatchCustomEvent("game_over");
+        throwGameOver(enemyPlayer);
         return;
     }
     else {
@@ -135,6 +135,12 @@ void Checker::checkWin(Player* enemyPlayer) {
         }
     }
 
-    cocos2d::Director::getInstance()->getEventDispatcher()->dispatchCustomEvent("game_over");
+    throwGameOver(enemyPlayer);
 
+}
+
+void Checker::throwGameOver(Player* enemyPlayer) {
+    for each (Player * player in _players) {
+        if(player != enemyPlayer) cocos2d::Director::getInstance()->getEventDispatcher()->dispatchCustomEvent("game_over", player);
+    }
 }

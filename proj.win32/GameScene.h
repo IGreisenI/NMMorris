@@ -5,6 +5,8 @@
 #include "Board.h"
 #include "Player.h"
 #include "PlayerInput.h"
+#include "PlayerTextFieldDelegate.h"
+
 #include "TurnController.h"
 #include "StageController.h"
 #include "Checker.h";
@@ -17,10 +19,11 @@ public:
     void setupEventListeners();
     static cocos2d::Scene* createScene();
 
-    virtual void onVictory();
+    virtual void onVictory(Player* winningPlayer);
     virtual void restartGame();
 
     CREATE_FUNC(GameScene);
+
 private:
     std::vector<Player*> _players;
 };

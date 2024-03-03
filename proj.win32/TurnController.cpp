@@ -1,9 +1,9 @@
 #include "TurnController.h"
 USING_NS_CC;
 
-TurnController* TurnController::create(PlayerInput* playerInput, std::vector<Player*> players) {
+TurnController* TurnController::create(PlayerInput* playerInput, std::vector<Player*> players, StageController* stageController) {
     TurnController* turnController = new (std::nothrow) TurnController();
-    if (turnController && turnController->init(playerInput, players)) {
+    if (turnController && turnController->init(playerInput, players, stageController)) {
         turnController->autorelease();
         return turnController;
     }
@@ -11,12 +11,14 @@ TurnController* TurnController::create(PlayerInput* playerInput, std::vector<Pla
     return nullptr;
 }
 
-bool TurnController::init(PlayerInput* playerInput, std::vector<Player*> players) {
+bool TurnController::init(PlayerInput* playerInput, std::vector<Player*> players, StageController* stageController) {
 
     _players = players;
     _playerInput = playerInput;
+    _stageController = stageController;
 	_currentPlayerIndex = random(0, (int)_players.size() - 1);
 	_playerInput->setActivePlayer(_players.at(_currentPlayerIndex));
+    _stageController->setActivePlayer(_players.at(_currentPlayerIndex));
 
     createPlayerLabel();
 
@@ -42,7 +44,10 @@ void TurnController::nextTurn() {
     cocos2d::Director::getInstance()->getEventDispatcher()->dispatchCustomEvent("end_turn", _players.at(_currentPlayerIndex));
 
 	_currentPlayerIndex = (_currentPlayerIndex + 1) % (int)_players.size();
+
+    // This feels like there should be an event that these subscribe to but idk how to do it in this engine/c++.
 	_playerInput->setActivePlayer(_players.at(_currentPlayerIndex));
+    _stageController->setActivePlayer(_players.at(_currentPlayerIndex));
 
     _playerTurnLabel->setString("Active turn: " + _players.at(_currentPlayerIndex)->getName());
 }

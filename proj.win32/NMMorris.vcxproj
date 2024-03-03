@@ -815,11 +815,16 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Checker.cpp" />
+    <ClCompile Include="FlyStage.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="MillStage.cpp" />
+    <ClCompile Include="MoveStage.cpp" />
     <ClCompile Include="Piece.cpp" />
+    <ClCompile Include="PlaceStage.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerInput.cpp" />
+    <ClCompile Include="PlayerTextFieldDelegate.cpp" />
     <ClCompile Include="Spot.cpp" />
     <ClCompile Include="StageController.cpp" />
     <ClCompile Include="TurnController.cpp" />
@@ -833,11 +838,16 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="E:\My Systems\NMMorris\Classes\AppDelegate.cpp" />
     <ClCompile Include="E:\My Systems\NMMorris\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="E:\My Systems\NMMorris\proj.win32\main.cpp" />
+    <ClInclude Include="FlyStage.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="MillStage.h" />
+    <ClInclude Include="MoveStage.h" />
     <ClInclude Include="Piece.h" />
+    <ClInclude Include="PlaceStage.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerInput.h" />
+    <ClInclude Include="PlayerTextFieldDelegate.h" />
     <ClInclude Include="Spot.h" />
     <ClInclude Include="StageController.h" />
     <ClInclude Include="TurnController.h" />

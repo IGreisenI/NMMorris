@@ -19,7 +19,7 @@ public:
 	virtual bool dfs(Spot* startSpot, Spot* currentSpot, Spot* excludeSpot, Player* currentPlayer, std::set<Spot*>& visited, int depth);
 	virtual bool checkMiddlePlacing(Spot* startSpot, Player* currentPlayer);
 
-
+	virtual void throwGameOver(Player* enemyPlayer);
 private:
 	std::vector<Player*> _players;
 };

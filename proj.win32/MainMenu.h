@@ -15,6 +15,5 @@ private:
     cocos2d::ui::Button* createButton(const std::string& text, float textSize);
     void startGame(cocos2d::Ref* sender);
     void quitGame(cocos2d::Ref* sender);
-    void showSettings(cocos2d::Ref* sender);
 };
 
