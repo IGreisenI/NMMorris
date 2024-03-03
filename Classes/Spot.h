@@ -21,7 +21,7 @@ public:
 private:
 	cocos2d::Sprite* _spotSprite;
 	cocos2d::Sprite* _spotAvaliableSprite;
-	Piece* _occupyingPiece;
+	Piece* _occupyingPiece;	
 	std::vector<Spot*> _connectingSpots;
 };
 

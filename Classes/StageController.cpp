@@ -1,7 +1,19 @@
 #include "StageController.h"
 USING_NS_CC;
 
-bool StageController::init() {
+StageController* StageController::create(Checker* checker) {
+	StageController* stageController = new (std::nothrow) StageController();
+	if (stageController && stageController->init(checker)) {
+		stageController->autorelease();
+		return stageController;
+	}
+	CC_SAFE_DELETE(stageController);
+	return nullptr;
+}
+
+bool StageController::init(Checker* checker) {
+	_checker = checker;
+
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
@@ -55,9 +67,9 @@ void StageController::indicateStage() {
 		_stageIndicator->setString("Fly");
 }
 
-void StageController::handleInput(Touch* touch, Event* event, Player* _activePlayer, Player* _oppenentPlayer, Checker* checker) {
+void StageController::handleInput(Touch* touch, Event* event, Player* _activePlayer, Player* _oppenentPlayer) {
 	if (_millAchieved)
-		_millStage->handleInput(touch, event, _oppenentPlayer, checker);
+		_millStage->handleInput(touch, event, _oppenentPlayer, _checker);
 	else if (!_activePlayer->isAllPiecesPlaced())
 		_placeStage->handleInput(touch, event, _activePlayer);
 	else if (_activePlayer->isAllPiecesPlaced() && _activePlayer->getPieces().size() > 3)

@@ -1,9 +1,9 @@
 #include "PlayerInput.h"
 USING_NS_CC;
 
-PlayerInput* PlayerInput::create(std::vector<Player*> players, Checker* checker, StageController* stageController) {
+PlayerInput* PlayerInput::create(std::vector<Player*> players, StageController* stageController) {
     PlayerInput* playerInput = new (std::nothrow) PlayerInput();
-    if (playerInput && playerInput->init(players, checker, stageController)) {
+    if (playerInput && playerInput->init(players, stageController)) {
         playerInput->autorelease();
         return playerInput;
     }
@@ -11,10 +11,9 @@ PlayerInput* PlayerInput::create(std::vector<Player*> players, Checker* checker,
     return nullptr;
 }
 
-bool PlayerInput::init(std::vector<Player*> players, Checker* checker, StageController* stageController)
+bool PlayerInput::init(std::vector<Player*> players, StageController* stageController)
 {
     _players = players;
-    _checker = checker;
     _stageController = stageController;
     setupEventListeners();
     return true;
@@ -43,7 +42,7 @@ bool PlayerInput::onTouchBegan(Touch* touch, Event* event)
         if (player != _activePlayer) opponentPlayer = player;
     }
 
-    _stageController->handleInput(touch, event, _activePlayer, opponentPlayer, _checker);
+    _stageController->handleInput(touch, event, _activePlayer, opponentPlayer);
     return true;
 }
 
