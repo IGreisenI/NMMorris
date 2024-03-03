@@ -1,7 +1,6 @@
 #pragma once
 #include "cocos2d.h"
 #include "Spot.h"
-#include "Player.h"
 
 class Board : public cocos2d::Node
 {

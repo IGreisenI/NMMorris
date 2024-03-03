@@ -136,7 +136,6 @@ void Checker::checkWin(Player* enemyPlayer) {
     }
 
     throwGameOver(enemyPlayer);
-
 }
 
 void Checker::throwGameOver(Player* enemyPlayer) {

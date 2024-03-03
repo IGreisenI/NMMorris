@@ -62,8 +62,8 @@ bool GameScene::init()
     player2Label->setPosition(Vec2(board->getBoundingBoxOfSprite().getMaxX(), board->getBoundingBoxOfSprite().getMinY()));
 
     Checker* checker = Checker::create(_players);
-    StageController* stageController = StageController::create();
-    PlayerInput* playerInput = PlayerInput::create(_players, checker, stageController);
+    StageController* stageController = StageController::create(checker);
+    PlayerInput* playerInput = PlayerInput::create(_players, stageController);
     TurnController* turnController = TurnController::create(playerInput, _players, stageController);
 
     this->addChild(backgroundSprite);

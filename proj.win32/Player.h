@@ -21,5 +21,4 @@ private:
 	std::string _name;
 	cocos2d::Color4B _playerColor;
 	std::vector<Piece*> _pieces;
-	bool _isTurn;
 };
