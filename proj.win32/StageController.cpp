@@ -42,7 +42,8 @@ void StageController::setupEventListeners()
 }
 
 void StageController::indicateStage() {
-	_stageIndicator->setColor(_activePlayer->getColor());
+	Color4B c = _activePlayer->getColor();
+	_stageIndicator->setColor(Color3B(c.r, c.g, c.b));
 
 	if(_millAchieved)
 		_stageIndicator->setString("Mill");

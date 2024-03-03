@@ -824,7 +824,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="PlaceStage.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerInput.cpp" />
-    <ClCompile Include="PlayerTextFieldDelegate.cpp" />
     <ClCompile Include="Spot.cpp" />
     <ClCompile Include="StageController.cpp" />
     <ClCompile Include="TurnController.cpp" />
@@ -847,7 +846,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="PlaceStage.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerInput.h" />
-    <ClInclude Include="PlayerTextFieldDelegate.h" />
     <ClInclude Include="Spot.h" />
     <ClInclude Include="StageController.h" />
     <ClInclude Include="TurnController.h" />

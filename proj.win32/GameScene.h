@@ -22,6 +22,9 @@ public:
     virtual void onVictory(Player* winningPlayer);
     virtual void restartGame();
 
+    void textFieldPlayer1Event(cocos2d::Ref* sender, cocos2d::ui::TextField::EventType type);
+    void textFieldPlayer2Event(cocos2d::Ref* sender, cocos2d::ui::TextField::EventType type);
+
     CREATE_FUNC(GameScene);
 
 private:

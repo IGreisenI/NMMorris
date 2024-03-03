@@ -30,7 +30,7 @@ void PlayerInput::setupEventListeners()
 
     auto restartKeyEventListener = EventListenerKeyboard::create();
     restartKeyEventListener->onKeyPressed = [=](EventKeyboard::KeyCode keyCode, Event* event) {
-        if (keyCode == EventKeyboard::KeyCode::KEY_R)
+        if (keyCode == EventKeyboard::KeyCode::KEY_TAB)
             dispatcher->dispatchCustomEvent("restart_game");
     };
     dispatcher->addEventListenerWithSceneGraphPriority(restartKeyEventListener, this);

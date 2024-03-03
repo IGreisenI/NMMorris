@@ -1,7 +1,7 @@
 #include "Player.h"
 USING_NS_CC;
 
-Player* Player::create(std::string name, cocos2d::Color3B playerColor) {
+Player* Player::create(std::string name, cocos2d::Color4B playerColor) {
 	Player* player = new (std::nothrow) Player();
 	if (player && player->init(name, playerColor)) {
 		player->autorelease();
@@ -11,7 +11,7 @@ Player* Player::create(std::string name, cocos2d::Color3B playerColor) {
 	return nullptr;
 }
 
-bool Player::init(std::string playerName, cocos2d::Color3B playerColor)
+bool Player::init(std::string playerName, cocos2d::Color4B playerColor)
 {
 	_name = playerName;
 	_playerColor = playerColor;
@@ -26,7 +26,7 @@ std::string Player::getName() {
 	return _name;
 }
 
-Color3B Player::getColor() {
+Color4B Player::getColor() {
 	return _playerColor;
 }
 
