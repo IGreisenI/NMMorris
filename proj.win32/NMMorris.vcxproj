@@ -118,7 +118,8 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>												</Message>
+      <Message>
+      </Message>
       <Command>setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different "E:/My Systems/NMMorris/cocos2d/external/openssl/prebuilt/win32/libssl-1_1.dll" "E:/My Systems/NMMorris/proj.win32/bin/NMMorris/Debug/libssl-1_1.dll"
 if %errorlevel% neq 0 goto :cmEnd
@@ -285,7 +286,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>												</Message>
+      <Message>
+      </Message>
       <Command>setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different "E:/My Systems/NMMorris/cocos2d/external/openssl/prebuilt/win32/libssl-1_1.dll" "E:/My Systems/NMMorris/proj.win32/bin/NMMorris/Release/libssl-1_1.dll"
 if %errorlevel% neq 0 goto :cmEnd
@@ -452,7 +454,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>												</Message>
+      <Message>
+      </Message>
       <Command>setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different "E:/My Systems/NMMorris/cocos2d/external/openssl/prebuilt/win32/libssl-1_1.dll" "E:/My Systems/NMMorris/proj.win32/bin/NMMorris/MinSizeRel/libssl-1_1.dll"
 if %errorlevel% neq 0 goto :cmEnd
@@ -618,7 +621,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>												</Message>
+      <Message>
+      </Message>
       <Command>setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different "E:/My Systems/NMMorris/cocos2d/external/openssl/prebuilt/win32/libssl-1_1.dll" "E:/My Systems/NMMorris/proj.win32/bin/NMMorris/RelWithDebInfo/libssl-1_1.dll"
 if %errorlevel% neq 0 goto :cmEnd
@@ -809,6 +813,23 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Board.cpp" />
+    <ClCompile Include="Checker.cpp" />
+    <ClCompile Include="FlyStage.cpp" />
+    <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="MillStage.cpp" />
+    <ClCompile Include="MoveStage.cpp" />
+    <ClCompile Include="Piece.cpp" />
+    <ClCompile Include="PlaceStage.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerInput.cpp" />
+    <ClCompile Include="Spot.cpp" />
+    <ClCompile Include="StageController.cpp" />
+    <ClCompile Include="TurnController.cpp" />
+    <ClCompile Include="VictoryScreen.cpp" />
+    <ClInclude Include="Board.h" />
+    <ClInclude Include="Checker.h" />
     <ClInclude Include="E:\My Systems\NMMorris\Classes\AppDelegate.h" />
     <ClInclude Include="E:\My Systems\NMMorris\Classes\HelloWorldScene.h" />
     <ClInclude Include="E:\My Systems\NMMorris\proj.win32\main.h" />
@@ -816,6 +837,19 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="E:\My Systems\NMMorris\Classes\AppDelegate.cpp" />
     <ClCompile Include="E:\My Systems\NMMorris\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="E:\My Systems\NMMorris\proj.win32\main.cpp" />
+    <ClInclude Include="FlyStage.h" />
+    <ClInclude Include="GameScene.h" />
+    <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="MillStage.h" />
+    <ClInclude Include="MoveStage.h" />
+    <ClInclude Include="Piece.h" />
+    <ClInclude Include="PlaceStage.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerInput.h" />
+    <ClInclude Include="Spot.h" />
+    <ClInclude Include="StageController.h" />
+    <ClInclude Include="TurnController.h" />
+    <ClInclude Include="VictoryScreen.h" />
     <ResourceCompile Include="E:\My Systems\NMMorris\proj.win32\game.rc" />
     <ClInclude Include="E:\My Systems\NMMorris\Resources\CloseNormal.png" />
     <ClInclude Include="E:\My Systems\NMMorris\Resources\CloseSelected.png" />
